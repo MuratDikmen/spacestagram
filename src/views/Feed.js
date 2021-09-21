@@ -7,7 +7,6 @@ function Feed() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(false);
-  // const [likes, setLikes] = useState([]);
   const [lastDate, setLastDate] = useState(new Date());
   const [pageNumber, setPageNumber] = useState(1);
   const [canFetchMore, setCanFetchMore] = useState(true);
