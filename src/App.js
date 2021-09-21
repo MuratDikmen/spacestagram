@@ -7,7 +7,7 @@ function App() {
       <header>
         <Header />
       </header>
-      <main className="container m-auto">
+      <main className="container m-auto bg-black">
         <Feed />
       </main>
     </div>
