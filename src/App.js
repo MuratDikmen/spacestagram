@@ -4,10 +4,12 @@ import Header from "./components/Header";
 function App() {
   return (
     <div className="m-auto h-screen bg-black">
-      <Header />
-      <div className="container m-auto">
+      <header>
+        <Header />
+      </header>
+      <main className="container m-auto">
         <Feed />
-      </div>
+      </main>
     </div>
   );
 }

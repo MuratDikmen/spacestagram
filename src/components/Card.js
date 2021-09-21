@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { MediaCard } from "@shopify/polaris";
 
-function Card({ photo, like, unlike }) {
+function Card({ photo, like, unlike, inputRef }) {
+  // console.log(photo);
   return (
-    <article className="mb-6">
+    <article className="mb-6" ref={inputRef}>
       <MediaCard
         title={
           photo.title +
@@ -21,6 +22,7 @@ function Card({ photo, like, unlike }) {
           onAction: () => {
             photo.liked ? unlike(photo.date) : like(photo.date);
           },
+          accessibilityLabel: photo.liked ? "Unlike Photo" : "Like Photo",
         }}
       >
         {photo.media_type === "image" ? (
