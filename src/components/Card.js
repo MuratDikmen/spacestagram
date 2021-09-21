@@ -2,14 +2,16 @@ import PropTypes from "prop-types";
 import { MediaCard } from "@shopify/polaris";
 
 function Card({ photo, like, unlike, inputRef }) {
-  // console.log(photo);
+  const date = new Date(photo.date);
+  date.setDate(date.getDate() + 1);
+
   return (
     <article className="mb-6" ref={inputRef}>
       <MediaCard
         title={
           photo.title +
           " - " +
-          new Date(photo.date).toLocaleString("en-US", {
+          date.toLocaleString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",

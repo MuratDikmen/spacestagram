@@ -7,16 +7,13 @@ function Feed() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(false);
-  const [likes, setLikes] = useState([]);
+  // const [likes, setLikes] = useState([]);
   const [lastDate, setLastDate] = useState(new Date());
   const [pageNumber, setPageNumber] = useState(1);
   const [canFetchMore, setCanFetchMore] = useState(true);
 
   useEffect(() => {
-    const likes = JSON.parse(localStorage.getItem("likes")) || [];
-    setLikes(likes);
     fetchPhotos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const observer = useRef();
@@ -38,6 +35,7 @@ function Feed() {
 
   function fetchPhotos() {
     setLoading(true);
+    const likes = JSON.parse(localStorage.getItem("likes")) || [];
     const { startDate, endDate } = calculateDateRange(lastDate);
     const startDateConverted = startDate.toLocaleDateString("en-CA");
     const endDateConverted = endDate.toLocaleDateString("en-CA");
@@ -92,11 +90,14 @@ function Feed() {
   }
 
   function calculateDateRange(date) {
-    let endDate = date;
-    let startDate = new Date(endDate.setDate(endDate.getDate() - 1));
+    let endDate = new Date(date);
+    let startDate = new Date(date);
     startDate.setDate(startDate.getDate() - 9);
-    console.log("End Date was:", endDate);
-    console.log("Start Date was set to:", startDate);
+    const today = new Date();
+    if (endDate.toDateString() === today.toDateString()) {
+      return { startDate, endDate };
+    }
+    endDate.setDate(endDate.getDate() - 1);
     return { startDate, endDate };
   }
 
@@ -108,7 +109,7 @@ function Feed() {
             return (
               <Card
                 photo={photo}
-                key={index}
+                key={photo.date}
                 like={like}
                 unlike={unlike}
                 inputRef={lastElementRef}
@@ -116,7 +117,12 @@ function Feed() {
             );
           } else {
             return (
-              <Card photo={photo} key={index} like={like} unlike={unlike} />
+              <Card
+                photo={photo}
+                key={photo.date}
+                like={like}
+                unlike={unlike}
+              />
             );
           }
         })}
@@ -138,55 +144,6 @@ function Feed() {
       )}
     </>
   );
-
-  // return;
-  // <>
-  //   {!loading && (
-
-  //   )}
-  //   {error && (
-  // <div className="flex justify-center items-center h-4/5">
-  //   <p>An error has occured. Please refresh the page.</p>
-  // </div>;
-  //   )}
-  //   {loading && (
-  // <div className="flex justify-center items-center h-4/5">
-  //   <img
-  //     src={loadingImage}
-  //     alt="Images loading"
-  //     className="w-1/4 md:w-36"
-  //   />
-  // </div>
-  //   )}
-  // </>;
-
-  // return !loading ? (
-  // <div className="flex justify-center items-center h-4/5">
-  //   <img src={loadingImage} alt="Images loading" className="w-1/4 md:w-36" />
-  // </div>
-  // ) : error ? (
-  // <div className="flex justify-center items-center h-4/5">
-  //   <p>An error has occured. Please refresh the page.</p>
-  // </div>
-  // ) : (
-  // <div className="px-4">
-  //   {photos.map((photo, index) => {
-  //     if (photos.length === index + 1) {
-  //       return (
-  //         <Card
-  //           photo={photo}
-  //           key={index}
-  //           like={like}
-  //           unlike={unlike}
-  //           inputRef={lastElementRef}
-  //         />
-  //       );
-  //     } else {
-  //       return <Card photo={photo} key={index} like={like} unlike={unlike} />;
-  //     }
-  //   })}
-  // </div>;
-  // );
 }
 
 export default Feed;
