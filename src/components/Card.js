@@ -46,7 +46,7 @@ function Card({ photo, like, unlike, inputRef }) {
             src={photo.url}
             frameBorder="0"
             allowFullScreen
-            className="w-screen"
+            className="w-screen md:w-full"
           ></iframe>
         )}
       </MediaCard>
