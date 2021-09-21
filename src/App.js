@@ -1,12 +1,13 @@
-import "./App.css";
 import Feed from "./views/Feed";
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Feed />
+    <div className="m-auto h-screen bg-black">
+      <Header />
+      <div className="container m-auto">
+        <Feed />
+      </div>
     </div>
   );
 }

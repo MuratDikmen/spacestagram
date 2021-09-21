@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#root > div {
+  --p-border-radius-wide: 0 !important;
+  /* --p-shadow-from-ambient-light: rgba(23, 24, 24, 0.05) !important; */
+}
+
+.Polaris-MediaCard {
+  align-items: center;
+}
